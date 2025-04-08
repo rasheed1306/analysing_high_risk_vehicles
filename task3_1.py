@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+DEBUG = False
+
 with open('a1-datasets/filtered_vehicle.csv', 'r') as file: 
     reader = csv.reader(file)
     # Skips Header row
@@ -16,7 +18,8 @@ pd.set_option('display.max_columns', None)
 # Convert the list of rows into a DataFrame
 df = pd.DataFrame(rows[:11], columns=header)
 
-print(df.loc[df.index, ['VEHICLE_YEAR_MANUF', 'VEHICLE_BODY_STYLE', 'VEHICLE_MAKE']])
+if DEBUG:
+    print(df.loc[df.index, ['VEHICLE_YEAR_MANUF', 'VEHICLE_BODY_STYLE', 'VEHICLE_MAKE']])
 
 # Count number crashes for each car's unique year of manufacture, body style, and manufacturing company
 counts_manuf = df['VEHICLE_YEAR_MANUF'].value_counts()
@@ -43,4 +46,9 @@ plt.scatter(x, y)
 plt.xlabel('Year of Vehicle Manufacture ')
 plt.ylabel('Vehicle Types (Body Style and Maker)') 
 plt.title('Correlation between Year of Manufacture and Vehicle Types in Crashes')
-plt.show()
+
+if DEBUG:
+    plt.show()
+
+# Save the figure as a PNG file 
+plt.savefig('task3_1_scatter.png')
